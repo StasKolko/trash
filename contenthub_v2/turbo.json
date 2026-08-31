@@ -1,0 +1,60 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "ui": "stream",
+  "tasks": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": ["dist/**"]
+    },
+    "start": {
+      "dependsOn": ["^build"],
+      "inputs": ["dist/**"]
+    },
+    
+    "db:generate": {
+      "cache": false
+    },
+    "db:migrate": {
+      "cache": false
+    },
+    "db:push": {
+      "cache": false
+    },
+    "db:studio": {
+      "cache": false,
+      "persistent": true
+    },
+
+    "test": {
+      "cache": false,
+      "persistent": true
+    },
+    "test:run": {
+      "inputs": ["src/**/*.{ts,tsx}", "vitest.config.ts", "test-setup.*"],
+      "outputs": []
+    },
+    "test:coverage": {
+      "inputs": ["src/**/*.{ts,tsx}", "vitest.config.ts", "test-setup.*"],
+      "outputs": ["coverage/**"]
+    },
+
+    "check": {
+      "dependsOn": ["//#check:biome:fix", "check:type"]
+    },
+    "//#check:biome:fix": {
+      "dependsOn": ["//#sync:biome"],
+      "cache": false
+    },
+    "//#sync:biome": {
+      "cache": false
+    },
+    "check:type": {
+      "dependsOn": ["^check:type"]
+    }
+  }
+}

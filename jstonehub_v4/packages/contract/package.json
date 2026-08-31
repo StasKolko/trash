@@ -1,0 +1,38 @@
+{
+  "name": "@packages/contract",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    "./pagination": "./src/pagination/index.ts",
+    "./queue": "./src/queue/index.ts",
+    "./audio-processing": "./src/audio-processing.ts",
+    "./auth-error": "./src/auth-error.ts",
+    "./auth": "./src/auth.ts",
+    "./browser-fingerprint": "./src/browser-fingerprint.ts",
+    "./format": "./src/format.ts",
+    "./joke-tts": "./src/joke-tts.ts",
+    "./joke": "./src/joke.ts",
+    "./language": "./src/language.ts",
+    "./permission": "./src/permission.ts",
+    "./role": "./src/role.ts",
+    "./secret-voicer": "./src/secret-voicer.ts",
+    "./segment": "./src/segment.ts",
+    "./storage": "./src/storage.ts",
+    "./subscription": "./src/subscription.ts",
+    "./tag": "./src/tag.ts",
+    "./timing": "./src/timing.ts"
+  },
+  "dependencies": {
+    "valibot": "catalog:frontend",
+    "typebox": "catalog:backend"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "vitest": "catalog:test",
+    "vite": "catalog:frontend-dev"
+  }
+}

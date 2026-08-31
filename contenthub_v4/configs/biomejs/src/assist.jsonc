@@ -1,0 +1,74 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.6/schema.json",
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              // ===== TYPE IMPORTS =====
+              {
+                "type": true,
+                "source": [":URL:", ":NODE:", ":BUN:"]
+              },
+
+              ":BLANK_LINE:",
+              {
+                "type": true,
+                "source": [":PACKAGE_WITH_PROTOCOL:", ":PACKAGE:"]
+              },
+
+              ":BLANK_LINE:",
+              {
+                "type": true,
+                "source": ":ALIAS:"
+              },
+
+              ":BLANK_LINE:",
+              {
+                "type": true,
+                "source": ":PATH:"
+              },
+
+              ":BLANK_LINE:",
+              {
+                "type": true,
+                "source": ":STYLE:"
+              },
+
+              // ===== VALUE IMPORTS =====
+              ":BLANK_LINE:",
+              [":URL:", ":NODE:", ":BUN:"],
+
+              ":BLANK_LINE:",
+              [":PACKAGE_WITH_PROTOCOL:", ":PACKAGE:"],
+
+              ":BLANK_LINE:",
+              ":ALIAS:",
+
+              ":BLANK_LINE:",
+              ":PATH:",
+
+              ":BLANK_LINE:",
+              ":STYLE:"
+            ]
+          }
+        },
+        "noDuplicateClasses": "on",
+        "useSortedPackageJson": "on",
+
+        "useSortedAttributes": "off",
+        "useSortedKeys": "off",
+        "useSortedProperties": "off",
+        "useSortedInterfaceMembers": "off",
+        "useSortedEnumMembers": "off",
+
+        // GraphQL
+        "useSortedSelectionSet": "off",
+        "useSortedTypeFields": "off"
+      }
+    }
+  }
+}

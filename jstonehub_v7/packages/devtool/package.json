@@ -1,0 +1,22 @@
+{
+  "name": "@packages/devtool",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    ".": "./src/devtool.tsx"
+  },
+  "dependencies": {
+    "solid-js": "catalog:frontend"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "vitest": "catalog:test",
+    "vite": "catalog:frontend-dev",
+    "@tanstack/solid-router-devtools": "catalog:frontend-dev",
+    "@tanstack/solid-query-devtools": "catalog:frontend-dev"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@scripts/theme-script-sync",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@scripts/util": "workspace:*"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "@configs/vitest": "workspace:*",
+    "vitest": "catalog:test",
+    "@vitest/coverage-v8": "catalog:test"
+  }
+}

@@ -1,0 +1,208 @@
+name: Reusable - Build, Push and Cleanup
+
+on:
+  workflow_call:
+    inputs:
+      registry:
+        required: true
+        type: string
+      image_name:
+        required: true
+        type: string
+      cdn_base_url:
+        required: true
+        type: string
+    secrets:
+      dockerhub_username:
+        required: true
+      dockerhub_token:
+        required: true
+      registry_username:
+        required: true
+      registry_token:
+        required: true
+    outputs:
+      image_tag:
+        description: "The generated short SHA image tag"
+        value: ${{ jobs.build-and-push.outputs.image_tag }}
+      image_digest:
+        description: "The digest of the pushed image"
+        value: ${{ jobs.build-and-push.outputs.image_digest }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image_tag: ${{ steps.tag.outputs.image_tag }}
+      image_digest: ${{ steps.build.outputs.digest }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Common environment variables
+        run: |
+          # <===== CLIENT =====>
+          echo "NEXT_PUBLIC_ICON=💚" >> .env.local
+          echo "NEXT_PUBLIC_CDN_BASE_URL=${inputs.cdn_base_url}" >> .env.local
+          # <===== SERVER =====>
+          echo "DATABASE_URL=postgresql://u:p@l:5432/mydb" >> .env.local
+          echo "AUTH_SECRET=devsecret" >> .env.local
+          echo "AUTH_TRUST_HOST=true" >> .env.local
+          echo "AUTH_URL=http://localhost:3000" >> .env.local
+          echo "NEXTAUTH_URL=http://localhost:3000" >> .env.local
+          echo "AUTH_YANDEX_ID=dummy" >> .env.local
+          echo "AUTH_YANDEX_SECRET=dummy" >> .env.local
+          echo "ADMIN_EMAILS=dummy@example.com" >> .env.local
+          echo "MANAGER_EMAILS=manager@example.com" >> .env.local
+          # NEW: S3/CDN placeholders for local build
+          echo "S3_ENDPOINT=http://minio.local:9000" >> .env.local
+          echo "S3_BUCKET=greenkiss" >> .env.local
+          echo "S3_ACCESS_KEY=minioadmin" >> .env.local
+          echo "S3_SECRET_KEY=minioadmin" >> .env.local
+          echo "S3_REGION=ru-1" >> .env.local
+          echo "S3_FORCE_PATH_STYLE=true" >> .env.local
+          echo "CDN_BASE_URL=https://cdn.example.com" >> .env.local
+
+      - name: Compute short sha tag
+        id: tag
+        run: echo "image_tag=sha-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.dockerhub_username }}
+          password: ${{ secrets.dockerhub_token }}
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ inputs.registry }}
+          username: ${{ secrets.registry_username }}
+          password: ${{ secrets.registry_token }}
+
+      - name: Extract metadata (tags, labels) for Docker (sha only)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ inputs.registry }}/${{ inputs.image_name }}
+          tags: |
+            type=raw,value=${{ steps.tag.outputs.image_tag }}
+
+      - name: Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          pull: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Install regctl + jq
+        run: |
+          set -e
+          sudo apt-get update
+          sudo apt-get install -y jq
+          curl -L https://github.com/regclient/regclient/releases/latest/download/regctl-linux-amd64 -o regctl
+          chmod +x regctl
+          sudo mv regctl /usr/local/bin/regctl
+          regctl version
+
+      - name: Keep last 5 sha-* tags; delete older
+        env:
+          REGISTRY: ${{ inputs.registry }}
+          REPO: ${{ inputs.image_name }}
+          KEEP: "5"
+          REGISTRY_USERNAME: ${{ secrets.registry_username }}
+          REGISTRY_TOKEN: ${{ secrets.registry_token }}
+        run: |
+          set -euo pipefail
+
+          FULL_REPO="$REGISTRY/$REPO"
+          echo "Logging into registry: $REGISTRY"
+          regctl registry login "$REGISTRY" --user "$REGISTRY_USERNAME" --pass "$REGISTRY_TOKEN"
+
+          echo "Fetching tags for $FULL_REPO"
+          mapfile -t SHA_TAGS < <(regctl tag ls "$FULL_REPO" | grep -E '^sha-' || true)
+          echo "Found ${#SHA_TAGS[@]} sha-* tags"
+
+          if (( ${#SHA_TAGS[@]} <= KEEP )); then
+            echo "Nothing to prune (<= $KEEP sha tags present)."
+            exit 0
+          fi
+
+          TMP="$(mktemp)"
+          for t in "${SHA_TAGS[@]}"; do
+            CREATED="$(regctl image inspect "$FULL_REPO:$t" | jq -r '.config.created // .created // .manifest.config.created // empty')"
+            if [[ -z "$CREATED" ]]; then
+              EPOCH="$(date +%s)"
+            else
+              EPOCH="$(date -d "$CREATED" +%s || date +%s)"
+            fi
+            DIGEST="$(regctl image digest "$FULL_REPO:$t")"
+            printf "%s %s %s\n" "$EPOCH" "$t" "$DIGEST" >> "$TMP"
+          done
+
+          mapfile -t TO_KEEP_LINES < <(sort -nr "$TMP" | head -n "$KEEP")
+          rm -f "$TMP"
+
+          TO_KEEP_TAGS=()
+          KEEP_DIGESTS_SET=" "
+          for line in "${TO_KEEP_LINES[@]}"; do
+            tag="$(awk '{print $2}' <<< "$line")"
+            digest="$(awk '{print $3}' <<< "$line")"
+            TO_KEEP_TAGS+=("$tag")
+            KEEP_DIGESTS_SET+="$digest "
+          done
+
+          echo "Will keep tags: ${TO_KEEP_TAGS[*]}"
+          echo "Protected digests: $KEEP_DIGESTS_SET"
+
+          declare -A DELETE_DIGESTS=()
+
+          for t in "${SHA_TAGS[@]}"; do
+            if printf ' %s ' "${TO_KEEP_TAGS[@]}" | grep -q " $t "; then
+              continue
+            fi
+
+            d="$(regctl image digest "$FULL_REPO:$t" || true)"
+            if [[ -z "$d" ]]; then
+              echo "Skip '$t' (no digest resolved)"
+              continue
+            fi
+
+            if [[ " $KEEP_DIGESTS_SET " == *" $d "* ]]; then
+              echo "Skip tag $t (digest kept: $d)"
+              continue
+            fi
+
+            DELETE_DIGESTS["$d"]=1
+          done
+
+          if (( ${#DELETE_DIGESTS[@]} == 0 )); then
+            echo "No digests to delete."
+            exit 0
+          fi
+
+          echo "Will delete ${#DELETE_DIGESTS[@]} old digest(s):"
+          for d in "${!DELETE_DIGESTS[@]}"; do
+            echo " - $d"
+          done
+
+          for d in "${!DELETE_DIGESTS[@]}"; do
+            echo "Deleting $FULL_REPO@$d"
+            if ! regctl image rm "$FULL_REPO@$d"; then
+              echo "Warning: failed to delete $FULL_REPO@$d"
+            fi
+          done
+          
+          echo "Cleanup finished."

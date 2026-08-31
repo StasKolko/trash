@@ -1,0 +1,181 @@
+/* ═══════════════════════════════════════════════════════════
+   CONTROL — Form element base styles
+   ═══════════════════════════════════════════════════════════ */
+
+@utility control-base {
+  @apply bg-control border border-control-border;
+}
+
+@utility control-text {
+  @apply text-[14px] text-foreground placeholder:text-subtle;
+}
+
+@utility field-spacing {
+  @apply pt-[8px] pb-[24px];
+}
+
+@utility scrollbar-styled {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: var(--radius);
+    cursor: grab;
+
+    &:hover {
+      background: var(--scrollbar-thumb-hover);
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FLOATING ANIMATIONS — Per-side enter/exit
+   ═══════════════════════════════════════════════════════════ */
+
+@utility floating-animate-top {
+  &[data-state="open"] {
+    animation: floating-in-top var(--duration-normal) var(--ease-smooth);
+  }
+  &[data-state="closed"] {
+    animation: floating-out-top var(--duration-fast) var(--ease-smooth);
+  }
+}
+
+@utility floating-animate-bottom {
+  &[data-state="open"] {
+    animation: floating-in-bottom var(--duration-normal) var(--ease-smooth);
+  }
+  &[data-state="closed"] {
+    animation: floating-out-bottom var(--duration-fast) var(--ease-smooth);
+  }
+}
+
+@utility floating-animate-left {
+  &[data-state="open"] {
+    animation: floating-in-left var(--duration-normal) var(--ease-smooth);
+  }
+  &[data-state="closed"] {
+    animation: floating-out-left var(--duration-fast) var(--ease-smooth);
+  }
+}
+
+@utility floating-animate-right {
+  &[data-state="open"] {
+    animation: floating-in-right var(--duration-normal) var(--ease-smooth);
+  }
+  &[data-state="closed"] {
+    animation: floating-out-right var(--duration-fast) var(--ease-smooth);
+  }
+}
+
+@keyframes floating-in-top {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes floating-out-top {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.96);
+  }
+}
+
+@keyframes floating-in-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes floating-out-bottom {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+  }
+}
+
+@keyframes floating-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-4px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes floating-out-left {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-4px) scale(0.96);
+  }
+}
+
+@keyframes floating-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(4px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes floating-out-right {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(4px) scale(0.96);
+  }
+}

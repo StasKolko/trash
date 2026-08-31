@@ -1,0 +1,31 @@
+{
+  "name": "@packages/contracts",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    "./admin-audit-log": "./src/admin-audit-log.ts",
+    "./admin-permission": "./src/admin-permission.ts",
+    "./content": "./src/content.ts",
+    "./limit": "./src/limit.ts",
+    "./notification": "./src/notification.ts",
+    "./org-audit-log": "./src/org-audit-log.ts",
+    "./pagination": "./src/pagination.ts",
+    "./permission": "./src/permission.ts",
+    "./role": "./src/role.ts",
+    "./status": "./src/status.ts",
+    "./subscription": "./src/subscription.ts",
+    "./system-log": "./src/system-log.ts",
+    "./testing": "./src/testing.ts",
+    "./ui": "./src/ui.ts"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "vitest": "catalog:test",
+    "vite": "catalog:frontend-dev"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@configs/biomejs",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./assist": "./src/assist.jsonc",
+    "./css": "./src/css.json",
+    "./files": "./src/files.jsonc",
+    "./formatter": "./src/formatter.json",
+    "./graphql": "./src/graphql.json",
+    "./grit": "./src/grit.json",
+    "./html": "./src/html.jsonc",
+    "./javascript": "./src/javascript.json",
+    "./json": "./src/json.json",
+    "./linter/a11y": "./src/linter/a11y.jsonc",
+    "./linter/complexity": "./src/linter/complexity.jsonc",
+    "./linter/correctness": "./src/linter/correctness.jsonc",
+    "./linter/nursery": "./src/linter/nursery.jsonc",
+    "./linter/performance": "./src/linter/performance.jsonc",
+    "./linter/security": "./src/linter/security.jsonc",
+    "./linter/style": "./src/linter/style.jsonc",
+    "./linter/suspicious": "./src/linter/suspicious.jsonc",
+    "./overrides": "./src/overrides.json",
+    "./plugins": "./src/plugins.json",
+    "./vcs": "./src/vcs.json"
+  }
+}

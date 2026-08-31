@@ -1,0 +1,48 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
+  "linter": {
+    "rules": {
+      "performance": {
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                     IMPORTS & EXPORTS                          ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        // Barrel files define explicit public API for modules.
+        // Only exports from index.ts are considered public — internal implementation stays hidden.
+        // Enforces clear module boundaries and prevents importing private internals.
+        "noBarrelFile": "off",
+        "noDynamicNamespaceImportAccess": "error",
+        "noNamespaceImport": "error",
+        "noReExportAll": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                    RUNTIME PERFORMANCE                         ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noAccumulatingSpread": "error",
+        "noAwaitInLoops": "error",
+        "noDelete": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          REGEX                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useTopLevelRegex": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                        SOLID JS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useSolidForComponent": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         NEXT JS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noImgElement": "off",
+        "noUnwantedPolyfillio": "off",
+        "useGoogleFontPreconnect": "off"
+      }
+    }
+  }
+}

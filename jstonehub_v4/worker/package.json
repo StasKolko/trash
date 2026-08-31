@@ -1,0 +1,31 @@
+{
+  "name": "@apps/worker",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "cd ../.. && bun --watch --env-file=apps/worker/.env.development apps/worker/src/app/main.ts",
+    "build": "bun build src/app/main.ts --minify --outdir dist --target bun",
+    "start": "bun dist/main.js",
+
+    "typecheck": "tsc --noEmit",
+
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@packages/contract": "workspace:*",
+    "@packages/util": "workspace:*",
+    "typebox": "catalog:backend",
+    "bullmq": "catalog:backend",
+    "ioredis": "catalog:backend",
+    "minio": "catalog:backend"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "@configs/vitest": "workspace:*",
+    "vitest": "catalog:test",
+    "@vitest/coverage-v8": "catalog:test"
+  }
+}

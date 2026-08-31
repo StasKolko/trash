@@ -1,0 +1,1 @@
+export const ASPECT_PREVIEW_MAX_SIZE = 96; // px

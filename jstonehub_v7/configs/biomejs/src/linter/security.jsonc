@@ -1,0 +1,29 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
+  "linter": {
+    "rules": {
+      "security": {
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                    SECRETS & SENSITIVE DATA                    ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        // OFF - too many false positives
+        "noSecrets": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                     GENERAL SECURITY                           ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noBlankTarget": "error",
+        "noGlobalEval": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          REACT                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noDangerouslySetInnerHtmlWithChildren": "off",
+        "noDangerouslySetInnerHtml": "off"
+      }
+    }
+  }
+}

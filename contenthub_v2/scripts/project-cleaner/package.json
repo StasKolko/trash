@@ -1,0 +1,23 @@
+{
+  "name": "@scripts/project-cleaner",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:type": "tsc --noEmit",
+
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:run": "vitest run"
+  },
+  "dependencies": {
+    "@packages/util-backend": "workspace:*",
+    "@packages/util-shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "@configs/vitest": "workspace:*",
+    "@vitest/coverage-v8": "catalog:test",
+    "vitest": "catalog:test"
+  }
+}

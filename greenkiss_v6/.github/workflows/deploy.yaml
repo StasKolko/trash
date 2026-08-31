@@ -1,0 +1,419 @@
+name: Docker Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    outputs:
+      image_tag: ${{ steps.tag.outputs.image_tag }}
+      image_digest: ${{ steps.build.outputs.digest }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Common environment variables
+        run: |
+          echo "VITE_MESSAGE=С любовью, от команды Green Kiss 💚" >> .env.local
+
+      - name: Compute short sha tag
+        id: tag
+        run: echo "image_tag=sha-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.REGISTRY }}
+          username: ${{ vars.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker (sha only)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ vars.REGISTRY }}/${{ vars.IMAGE_NAME }}
+          tags: |
+            type=raw,value=${{ steps.tag.outputs.image_tag }}
+
+      - name: Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          pull: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Install regctl + jq
+        run: |
+          set -e
+          sudo apt-get update
+          sudo apt-get install -y jq
+          curl -L https://github.com/regclient/regclient/releases/latest/download/regctl-linux-amd64 -o regctl
+          chmod +x regctl
+          sudo mv regctl /usr/local/bin/regctl
+          regctl version
+
+      - name: Keep last 5 sha-* tags; delete older (no latest)
+        env:
+          REGISTRY: ${{ vars.REGISTRY }}
+          REPO: ${{ vars.IMAGE_NAME }}
+          KEEP: "5"
+          REGISTRY_USERNAME: ${{ vars.REGISTRY_USERNAME }}
+          REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          FULL_REPO="$REGISTRY/$REPO"
+          echo "Logging into registry: $REGISTRY"
+          regctl registry login "$REGISTRY" --user "$REGISTRY_USERNAME" --pass "$REGISTRY_TOKEN"
+
+          echo "Fetching tags for $FULL_REPO"
+          mapfile -t SHA_TAGS < <(regctl tag ls "$FULL_REPO" | grep -E '^sha-' || true)
+          echo "Found ${#SHA_TAGS[@]} sha-* tags"
+
+          if (( ${#SHA_TAGS[@]} <= KEEP )); then
+            echo "Nothing to prune (<= $KEEP sha tags present)."
+            exit 0
+          fi
+
+          TMP="$(mktemp)"
+          # Собираем: epoch tag digest
+          for t in "${SHA_TAGS[@]}"; do
+            CREATED="$(regctl image inspect "$FULL_REPO:$t" | jq -r '.config.created // .created // .manifest.config.created // empty')"
+            if [[ -z "$CREATED" ]]; then
+              EPOCH="$(date +%s)"
+            else
+              EPOCH="$(date -d "$CREATED" +%s || date +%s)"
+            fi
+            DIGEST="$(regctl image digest "$FULL_REPO:$t")"
+            printf "%s %s %s\n" "$EPOCH" "$t" "$DIGEST" >> "$TMP"
+          done
+
+          # Берем KEEP самых новых sha-* тегов
+          mapfile -t TO_KEEP_LINES < <(sort -nr "$TMP" | head -n "$KEEP")
+          rm -f "$TMP"
+
+          TO_KEEP_TAGS=()
+          KEEP_DIGESTS_SET=" "
+          for line in "${TO_KEEP_LINES[@]}"; do
+            tag="$(awk '{print $2}' <<< "$line")"
+            digest="$(awk '{print $3}' <<< "$line")"
+            TO_KEEP_TAGS+=("$tag")
+            KEEP_DIGESTS_SET+="$digest "
+          done
+
+          echo "Will keep tags: ${TO_KEEP_TAGS[*]}"
+          echo "Protected digests: $KEEP_DIGESTS_SET"
+
+          # Сформируем множество digest'ов для удаления (уникальные)
+          declare -A DELETE_DIGESTS=()
+
+          for t in "${SHA_TAGS[@]}"; do
+            # если тег входит в список сохраняемых — пропускаем
+            if printf ' %s ' "${TO_KEEP_TAGS[@]}" | grep -q " $t "; then
+              continue
+            fi
+
+            d="$(regctl image digest "$FULL_REPO:$t" || true)"
+            if [[ -z "$d" ]]; then
+              echo "Skip '$t' (no digest resolved)"
+              continue
+            fi
+
+            # Если digest защищен — не трогаем
+            if [[ " $KEEP_DIGESTS_SET " == *" $d "* ]]; then
+              echo "Skip tag $t (digest kept: $d)"
+              continue
+            fi
+
+            DELETE_DIGESTS["$d"]=1
+          done
+
+          if (( ${#DELETE_DIGESTS[@]} == 0 )); then
+            echo "No digests to delete."
+            exit 0
+          fi
+
+          echo "Will delete ${#DELETE_DIGESTS[@]} old digest(s):"
+          for d in "${!DELETE_DIGESTS[@]}"; do
+            echo " - $d"
+          done
+
+          # Удаляем манифесты по digest — это снимет все теги, указывающие на них
+          for d in "${!DELETE_DIGESTS[@]}"; do
+            echo "Deleting $FULL_REPO@$d"
+            if ! regctl image rm "$FULL_REPO@$d"; then
+              echo "Warning: failed to delete $FULL_REPO@$d"
+            fi
+          done
+
+          echo "Cleanup finished."
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.SSH_HOST }}
+          port: ${{ vars.SSH_PORT }}
+          username: ${{ vars.SSH_USERNAME }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -Eeuo pipefail
+
+            # --- Preconditions: Docker logins ---
+            echo "${{ secrets.REGISTRY_TOKEN }}" | docker login ${{ vars.REGISTRY }} -u ${{ vars.REGISTRY_USERNAME }} --password-stdin
+
+            echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login docker.io -u ${{ vars.DOCKERHUB_USERNAME }} --password-stdin
+
+            # --- Paths & constants ---
+            DEPLOY_DIR="/home/${{ vars.SSH_USERNAME }}/${{ vars.DEPLOY_DIR }}"
+            mkdir -p "$DEPLOY_DIR"
+            cd "$DEPLOY_DIR"
+
+            TRAEFIK_COMPOSE="$DEPLOY_DIR/docker-compose.traefik.yml"
+            TRAEFIK_ENV="$DEPLOY_DIR/.env"
+            LETSENCRYPT_DIR="$DEPLOY_DIR/letsencrypt"
+
+            # --- Prepare volumes for Traefik ACME storage ---
+            mkdir -p "$LETSENCRYPT_DIR"
+            touch "$LETSENCRYPT_DIR/acme.json"
+            chmod 600 "$LETSENCRYPT_DIR/acme.json"
+
+            # --- Ensure .env for compose exists and has required keys ---
+            create_or_update_env() {
+              local file="$1" key="$2" value="$3"
+              if grep -qE "^${key}=.*" "$file" 2>/dev/null; then
+                sed -i -E "s|^${key}=.*|${key}=${value}|" "$file"
+              else
+                printf "%s=%s\n" "$key" "$value" >> "$file"
+              fi
+            }
+
+            if [[ ! -f "$TRAEFIK_ENV" ]]; then
+              umask 077
+              {
+                echo "# Autogenerated by CI at $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+                echo "DOMAIN=${{ vars.DOMAIN }}"
+                echo "TRAEFIK_HOST=${{ vars.TRAEFIK_HOST }}"
+                echo "ACME_EMAIL=${{ vars.ACME_EMAIL }}"
+                # Do NOT echo token to logs; store securely in .env for Traefik DNS challenge
+                echo "CF_DNS_API_TOKEN=${{ secrets.CF_DNS_API_TOKEN }}"
+              } > "$TRAEFIK_ENV"
+              chmod 600 "$TRAEFIK_ENV"
+            else
+              # Update/ensure required keys exist
+              create_or_update_env "$TRAEFIK_ENV" "DOMAIN" "${{ vars.DOMAIN }}"
+              create_or_update_env "$TRAEFIK_ENV" "TRAEFIK_HOST" "${{ vars.TRAEFIK_HOST }}"
+              create_or_update_env "$TRAEFIK_ENV" "ACME_EMAIL" "${{ vars.ACME_EMAIL }}"
+              create_or_update_env "$TRAEFIK_ENV" "CF_DNS_API_TOKEN" "${{ secrets.CF_DNS_API_TOKEN }}"
+            fi
+
+            # --- Desired docker-compose for Traefik ---
+            TMP_COMPOSE="$(mktemp)"
+            cat > "$TMP_COMPOSE" <<'YAML'
+            services:
+              traefik:
+                image: "traefik:v3.4"
+                container_name: "traefik"
+                restart: unless-stopped
+                environment:
+                  - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+                  - ACME_EMAIL=${ACME_EMAIL}
+                  - TRAEFIK_HOST=${TRAEFIK_HOST}
+                  - DOMAIN=${DOMAIN}
+                networks:
+                  - proxy
+                command:
+                  - "--log.level=DEBUG"
+                  - "--accesslog=true" 
+                  - "--api.insecure=false"
+                  - "--api.dashboard=true"
+                  - "--providers.docker=true"
+                  - "--providers.docker.exposedbydefault=false"
+                  - "--providers.docker.network=proxy"
+                  - "--entrypoints.web.address=:80"
+                  - "--entrypoints.websecure.address=:443"
+                  - "--certificatesresolvers.letsencrypt.acme.dnschallenge=true"
+                  - "--certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare"
+                  - "--certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}"
+                  - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+                  - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+                  - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+                ports:
+                  - "80:80"
+                  - "443:443"
+                  - "8080:8080"
+                volumes:
+                  - "./letsencrypt:/letsencrypt"
+                  - "/var/run/docker.sock:/var/run/docker.sock:ro"
+                labels:
+                  - "traefik.enable=true"
+                  - "traefik.http.routers.dashboard.rule=Host(`${TRAEFIK_HOST}`)"
+                  - "traefik.http.routers.dashboard.entrypoints=websecure"
+                  - "traefik.http.routers.dashboard.tls=true"
+                  - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
+                  - "traefik.http.routers.dashboard.service=api@internal"
+                  - "traefik.http.routers.dashboard.tls.domains[0].main=${DOMAIN}"
+                  - "traefik.http.routers.dashboard.tls.domains[0].sans=*.${DOMAIN}"
+
+            networks:
+              proxy:
+                name: proxy
+                driver: bridge
+            YAML
+
+            # --- Compare and apply compose changes idempotently ---
+            NEW_HASH="$(sha256sum "$TMP_COMPOSE" | awk '{print $1}')"
+            OLD_HASH=""
+            if [[ -f "$TRAEFIK_COMPOSE" ]]; then
+              OLD_HASH="$(sha256sum "$TRAEFIK_COMPOSE" | awk '{print $1}')"
+            fi
+
+            if [[ "$NEW_HASH" != "$OLD_HASH" ]]; then
+              mv "$TMP_COMPOSE" "$TRAEFIK_COMPOSE"
+              echo "Traefik compose changed (or first deploy), applying..."
+            else
+              rm -f "$TMP_COMPOSE"
+              echo "Traefik compose unchanged."
+            fi
+
+            # Pull/update and (re)start Traefik
+            docker compose -f "$TRAEFIK_COMPOSE" --env-file "$TRAEFIK_ENV" pull traefik || true
+            docker compose -f "$TRAEFIK_COMPOSE" --env-file "$TRAEFIK_ENV" up -d traefik
+
+            # --- Deploy application container with zero-downtime swap ---
+            IMAGE="${{ vars.REGISTRY }}/${{ vars.IMAGE_NAME }}:${{ needs.build-and-push.outputs.image_tag }}"
+            docker pull "$IMAGE"
+
+            APP_REPO="${{ vars.IMAGE_NAME }}"
+            APP_NAME="${APP_REPO##*/}"
+            ROUTER="${APP_REPO//\//-}"
+
+            BASE_NAME="${APP_NAME}-${{ github.ref_name }}"
+            NEW_NAME="${BASE_NAME}-new"
+
+            if docker ps -a --format '{{.Names}}' | grep -qx "$NEW_NAME"; then
+              docker rm -f "$NEW_NAME" || true
+            fi
+
+            args=(
+              -d
+              --name "$NEW_NAME"
+              --restart unless-stopped
+              --network proxy
+
+              # Traefik labels
+              --label "traefik.enable=true"
+              --label "traefik.docker.network=proxy"
+              --label "traefik.http.services.${ROUTER}.loadbalancer.server.port=3000"
+              --label "traefik.http.services.${ROUTER}.loadbalancer.healthcheck.path=/api/health"
+              --label "traefik.http.services.${ROUTER}.loadbalancer.healthcheck.interval=3s"
+
+              # HTTPS routers
+              --label "traefik.http.routers.${ROUTER}.rule=Host(\`${{ vars.DOMAIN }}\`)"
+              --label "traefik.http.routers.${ROUTER}.entrypoints=websecure"
+              --label "traefik.http.routers.${ROUTER}.tls=true"
+              --label "traefik.http.routers.${ROUTER}.tls.certresolver=letsencrypt"
+              --label "traefik.http.routers.${ROUTER}.service=${ROUTER}"
+
+              --label "traefik.http.routers.${ROUTER}-www.rule=Host(\`www.${{ vars.DOMAIN }}\`)"
+              --label "traefik.http.routers.${ROUTER}-www.entrypoints=websecure"
+              --label "traefik.http.routers.${ROUTER}-www.tls=true"
+              --label "traefik.http.routers.${ROUTER}-www.tls.certresolver=letsencrypt"
+              --label "traefik.http.routers.${ROUTER}-www.service=${ROUTER}"
+            )
+
+            docker run "${args[@]}" "$IMAGE"
+
+            echo "Waiting for $NEW_NAME to become healthy..."
+            READY=0
+            for i in $(seq 1 30); do
+              status="$(docker inspect -f '{{.State.Health.Status}}' "$NEW_NAME" 2>/dev/null || true)"
+              if [[ "$status" == "healthy" ]]; then
+                echo "Container is healthy."
+                READY=1
+                break
+              fi
+              if [[ "$status" == "unhealthy" ]]; then
+                echo "Container reported unhealthy."
+                break
+              fi
+              sleep 2
+            done
+
+            if [[ "$READY" -ne 1 ]]; then
+              echo "New container $NEW_NAME did not become healthy (status: ${status:-unknown})." >&2
+              docker logs "$NEW_NAME" || true
+              docker rm -f "$NEW_NAME" || true
+              exit 1
+            fi
+
+            # Stop old, promote new
+            if docker ps -a --format '{{.Names}}' | grep -qx "$BASE_NAME"; then
+              docker stop "$BASE_NAME" || true
+              docker rm "$BASE_NAME" || true
+            fi
+            docker rename "$NEW_NAME" "$BASE_NAME" || true
+
+            # --- Local cleanup: containers and images ---
+            # Remove any leftover "-new" containers
+            mapfile -t STALE_NEWS < <(docker ps -a --format '{{.Names}}' | grep -E "^${APP_NAME}-.*-new$" || true)
+            for c in "${STALE_NEWS[@]}"; do
+              [[ -n "$c" ]] || continue
+              docker rm -f "$c" || true
+            done
+
+            # Prune dangling data
+            docker image prune -f || true
+            docker container prune -f || true
+            docker volume prune -f || true
+            docker builder prune -f || true
+
+            # Remove older local images of the app, keep the 3 most recent
+            REPO_PREFIX="${{ vars.REGISTRY }}/${{ vars.IMAGE_NAME }}"
+            mapfile -t APP_IMAGES < <(docker images --format '{{.Repository}}:{{.Tag}}|{{.CreatedAt}}' \
+              | grep -E "^${REPO_PREFIX}:sha-[0-9a-f]{7}\|" \
+              | sort -rk2)
+            if (( ${#APP_IMAGES[@]} > 3 )); then
+              for img_line in "${APP_IMAGES[@]:3}"; do
+                img="${img_line%%|*}"
+                # Do not remove the currently running image
+                if [[ "$img" != "$IMAGE" ]]; then
+                  docker image rm -f "$img" || true
+                fi
+              done
+            fi
+
+            echo "Deployment completed successfully."

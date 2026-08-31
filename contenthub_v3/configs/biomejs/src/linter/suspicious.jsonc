@@ -1,0 +1,294 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.6/schema.json",
+  "linter": {
+    "rules": {
+      "suspicious": {
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                    DEBUGGING & CONSOLE                         ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noConsole": "error",
+        "noDebugger": "error",
+        "noAlert": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                   ASSIGNMENTS & MUTATIONS                      ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noAssignInExpressions": "error",
+        "noCatchAssign": "error",
+        "noClassAssign": "error",
+        "noFunctionAssign": "error",
+        "noGlobalAssign": "error",
+        "noImportAssign": "error",
+        "noMisrefactoredShorthandAssign": "error",
+        "noReturnAssign": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                      DUPLICATES                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noDuplicateCase": "error",
+        "noDuplicateClassMembers": "error",
+        "noDuplicateElseIf": "error",
+        "noDuplicateObjectKeys": "error",
+        "noDuplicateParameters": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                    VARIABLES & SCOPE                           ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noVar": "error",
+        "noWith": "error",
+        "noLabelVar": "error",
+        "noRedeclare": "error",
+        "noShadow": "error",
+        "noShadowRestrictedNames": "error",
+        "noUnassignedVariables": "error",
+        "noRedundantUseStrict": "error",
+
+        // ES modules are strict by default — no need to add "use strict"
+        "useStrictMode": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                     COMPARISONS & LOGIC                        ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noDoubleEquals": "error",
+        "noEqualsToNull": "error",
+        "noCompareNegZero": "error",
+        "noConstantBinaryExpressions": "error",
+        "noSelfCompare": "error",
+        "noUnsafeNegation": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                    CONTROL FLOW & SWITCH                       ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noConfusingLabels": "error",
+        "noFallthroughSwitchClause": "error",
+        "noForIn": "error",
+        "useDefaultSwitchClauseLast": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                    EMPTY & USELESS CODE                        ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noEmptyBlockStatements": "error",
+        "noSparseArray": "error",
+        "noUnusedExpressions": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                     ASYNC & PROMISES                           ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noAsyncPromiseExecutor": "error",
+        "noNestedPromises": "error",
+        "noThenProperty": "error",
+        "useAwait": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         NUMBERS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noApproximativeNumericConstant": "error",
+        "noGlobalIsFinite": "error",
+        "noGlobalIsNan": "error",
+        "useNumberToFixedDigitsArgument": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         STRINGS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noOctalEscape": "error",
+        "noTemplateCurlyInString": "error",
+        "noUselessEscapeInString": "error",
+        "noIrregularWhitespace": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          REGEX                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noControlCharactersInRegex": "error",
+        "noMisleadingCharacterClass": "error",
+        "noUselessRegexBackrefs": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          ARRAYS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useIsArray": "error",
+        "useIterableCallbackReturn": "error",
+        "useArraySortCompare": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         OBJECTS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noPrototypeBuiltins": "error",
+        "noProto": "error",
+        "useGuardForIn": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                        FUNCTIONS                               ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useGetterReturn": "error",
+        "noParametersOnlyUsedInRecursion": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         CLASSES                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noMisleadingInstantiator": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                        OPERATORS                               ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noBitwiseOperators": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                       TYPESCRIPT                               ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noConfusingVoidType": "error",
+        "noConstEnum": "error",
+        "noEmptyInterface": "error",
+        "noEvolvingTypes": "error",
+        "noExplicitAny": "error",
+        "noExtraNonNullAssertion": "error",
+        "noImplicitAnyLet": "error",
+        "noNonNullAssertedOptionalChain": "error",
+        "noTsIgnore": "error",
+        "noUnsafeDeclarationMerging": "error",
+        // noUnnecessaryConditions: types-domain — enables the type scanner,
+        // but worth it: catches always-true/false conditions, redundant ?. and ??.
+        "noUnnecessaryConditions": "error",
+        "useAdjacentOverloadSignatures": "error",
+        "useNamespaceKeyword": "error",
+
+        // noDuplicateEnumValues: off — enums are banned (noEnum), nothing to check.
+        "noDuplicateEnumValues": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         TESTING                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noDuplicateTestHooks": "error",
+        "noExportsInTest": "error",
+        "noFocusedTests": "error",
+        "noMisplacedAssertion": "error",
+        "noSkippedTests": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          PACKAGE.JSON                          ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        // useRequiredScripts: off — empty list is a no-op, and required scripts
+        // vary across our many workspaces; not enforcing a single global set.
+        "useRequiredScripts": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                           JSX                                  ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noCommentText": "error",
+        "noDuplicateJsxProps": "error",
+        "noReactSpecificProps": "error",
+        "noSuspiciousSemicolonInJsx": "error",
+        "noDuplicatedSpreadProps": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                        BROWSER                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noDocumentCookie": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          ERRORS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useErrorMessage": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                     IMPORTS & DEPENDENCIES                     ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noDeprecatedImports": "error",
+        "noDuplicateDependencies": "error",
+        "noImportCycles": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                        GRAPHQL                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noDuplicateFields": "off",
+        "noDuplicateGraphqlOperationName": "off",
+        "useDeprecatedDate": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                           CSS                                  ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noDeprecatedMediaType": "error",
+        "noDuplicateAtImportRules": "error",
+        "noDuplicateCustomProperties": "error",
+        "noDuplicateFontNames": "error",
+        "noDuplicateProperties": "error",
+        "noDuplicateSelectorsKeyframeBlock": "error",
+        "noEmptyBlock": "error",
+        "noEmptySource": "error",
+        "noImportantInKeyframe": "error",
+        "noShorthandPropertyOverrides": "error",
+        "noUnknownAtRules": "error",
+        "useGoogleFontDisplay": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                      BIOME-SPECIFIC                            ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noBiomeFirstException": "error",
+        "noQuickfixBiome": "error",
+        "useBiomeIgnoreFolder": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          HTTP                                  ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useStaticResponseMethods": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                        TURBOREPO                               ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noUndeclaredEnvVars": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          REACT                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noArrayIndexKey": "off",
+        "noReactForwardRef": "off",
+        // noLeakedRender: React-only. In Solid use <Show> — different rendering model.
+        "noLeakedRender": "off",
+        // noUnknownAttribute: React-only. In Solid onclick ≠ onClick:
+        // one delegates globally, the other binds to the element (different perf).
+        "noUnknownAttribute": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          VUE JS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noVueArrowFuncInWatch": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         NEXT JS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noDocumentImportInPage": "off",
+        "noHeadImportInDocument": "off"
+      }
+    }
+  }
+}

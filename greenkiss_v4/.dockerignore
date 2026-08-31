@@ -1,0 +1,36 @@
+# Git
+.git/
+.husky/
+.gitignore
+.gitattributes
+
+# Dependencies
+node_modules/
+
+# Typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Docs
+README.md
+LICENSE
+
+# IDLE
+.vscode
+.idea
+
+# Env
+.env*
+!.env.local
+
+# Scripts
+scripts/
+context/
+
+# AI
+.qodo/

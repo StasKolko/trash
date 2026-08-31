@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: hsl(0deg 0% 100%);
+  --foreground: hsl(222deg 100% 4%);
+}
+
+.dark {
+  --background: hsl(240deg 10% 3.9%);
+  --foreground: hsl(0deg 0% 98%);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+:root,
+html,
+body {
+  height: 100%;
+}
+
+:disabled, .disabled {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.5;
+}

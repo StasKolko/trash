@@ -1,0 +1,70 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.6/schema.json",
+  "overrides": [
+    {
+      "includes": [
+        "**/vite.config.ts",
+        "**/vitest.config.ts",
+        "**/drizzle.config.ts"
+      ],
+      "linter": {
+        "rules": {
+          "style": { "noDefaultExport": "off" },
+          "correctness": { "noNodejsModules": "off" }
+        }
+      }
+    },
+    {
+      "includes": ["scripts/**"],
+      "linter": {
+        "rules": {
+          "suspicious": { "noConsole": "off" }
+        }
+      }
+    },
+    {
+      "includes": ["configs/vite/**", "scripts/**", "packages/util-backend/**"],
+      "linter": {
+        "rules": {
+          "correctness": { "noNodejsModules": "off" },
+          "style": { "noProcessEnv": "off" }
+        }
+      }
+    },
+    {
+      "includes": ["**/*.test.ts", "**/*.test.tsx"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "useButtonType": "off",
+            "useValidAnchor": "off"
+          },
+          "style": {
+            "noMagicNumbers": "off",
+            "useNumberNamespace": "off",
+            "useThrowOnlyError": "off",
+            "noProcessEnv": "off",
+            "noExcessiveLinesPerFile": "off"
+          },
+          "suspicious": {
+            "noEmptyBlockStatements": "off",
+            "useAwait": "off",
+            "useErrorMessage": "off",
+            "noExplicitAny": "off"
+          },
+          "correctness": {
+            "noNodejsModules": "off",
+            "noRestrictedElements": "off"
+          },
+          "complexity": {
+            "noExcessiveLinesPerFunction": "off",
+            "noExcessiveCognitiveComplexity": "off"
+          },
+          "performance": {
+            "noNamespaceImport": "off"
+          }
+        }
+      }
+    }
+  ]
+}

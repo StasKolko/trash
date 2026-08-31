@@ -1,0 +1,13 @@
+# HUB Environment Variables
+
+**Validated at runtime with Valibot.**
+
+```typescript
+import { env } from "#hub/shared/config/env";
+```
+
+| Variable | Required | Type |
+|----------|----------|------|
+| `API_URL` | Yes | string |
+| `ADMIN_URL` | Yes | string |
+| `SUPPORT_EMAIL` | Yes | string |

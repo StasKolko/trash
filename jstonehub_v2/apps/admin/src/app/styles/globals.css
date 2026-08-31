@@ -1,0 +1,108 @@
+@import "@configs/styles";
+@source "../../../../../packages/ui/src/**/*.tsx";
+
+/* ═══════════════════════════════════════════════════════════
+   🔧 JStone ADMIN — Professional Neutral Theme  
+   Clean, focused, business-oriented
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* === Core Radius === */
+  --radius: 8px;
+
+  /* === Light Mode === */
+  --background: oklch(0.98 0.004 250);
+  --foreground: oklch(0.15 0.015 250);
+
+  /* Primary: Deep Slate */
+  --primary: oklch(0.25 0.02 250);
+  --primary-foreground: oklch(0.98 0.004 250);
+
+  /* Secondary: Cool Gray */
+  --secondary: oklch(0.94 0.006 250);
+  --secondary-foreground: oklch(0.25 0.02 250);
+
+  /* Accent: Teal */
+  --accent: oklch(0.55 0.14 190);
+  --accent-foreground: oklch(0.98 0.004 190);
+
+  /* Active: Darker Teal */
+  --active: oklch(0.45 0.12 190);
+  --active-foreground: oklch(0.98 0.004 190);
+
+  /* Muted */
+  --muted: oklch(0.95 0.004 250);
+  --muted-foreground: oklch(0.5 0.01 250);
+
+  /* Card & Popover */
+  --card: oklch(0.99 0.002 250);
+  --card-foreground: oklch(0.15 0.015 250);
+  --popover: oklch(0.99 0.002 250);
+  --popover-foreground: oklch(0.15 0.015 250);
+
+  /* Semantic Colors: visible soft bg + dark saturated text */
+  --success: oklch(0.92 0.08 145);
+  --success-foreground: oklch(0.35 0.15 145);
+  --error: oklch(0.92 0.08 25);
+  --error-foreground: oklch(0.45 0.18 25);
+  --warning: oklch(0.92 0.1 75);
+  --warning-foreground: oklch(0.4 0.14 75);
+  --info: oklch(0.92 0.06 240);
+  --info-foreground: oklch(0.4 0.14 240);
+
+  /* Borders & Inputs */
+  --border: oklch(0.88 0.006 250);
+  --input: oklch(0.88 0.006 250);
+  --ring: oklch(0.55 0.14 190);
+  --backdrop: oklch(0.15 0.015 250 / 0.6);
+  --shadow: oklch(0.35 0.03 250 / 0.4);
+  --shadow-layer-1: oklch(0.35 0.03 250 / 0.12);
+  --shadow-layer-2: oklch(0.35 0.03 250 / 0.08);
+  --shadow-layer-3: oklch(0.35 0.03 250 / 0.05);
+}
+
+.dark {
+  --background: oklch(0.14 0.01 250);
+  --foreground: oklch(0.93 0.006 250);
+
+  --primary: oklch(0.93 0.006 250);
+  --primary-foreground: oklch(0.14 0.01 250);
+
+  --secondary: oklch(0.22 0.01 250);
+  --secondary-foreground: oklch(0.88 0.006 250);
+
+  /* Accent: Brighter Teal */
+  --accent: oklch(0.65 0.13 190);
+  --accent-foreground: oklch(0.14 0.01 190);
+
+  /* Active */
+  --active: oklch(0.55 0.11 190);
+  --active-foreground: oklch(0.14 0.01 190);
+
+  --muted: oklch(0.2 0.008 250);
+  --muted-foreground: oklch(0.6 0.008 250);
+
+  --card: oklch(0.18 0.01 250);
+  --card-foreground: oklch(0.93 0.006 250);
+  --popover: oklch(0.18 0.01 250);
+  --popover-foreground: oklch(0.93 0.006 250);
+
+  /* Semantic Colors: visible soft bg + bright saturated text */
+  --success: oklch(0.25 0.06 145);
+  --success-foreground: oklch(0.75 0.14 145);
+  --error: oklch(0.25 0.06 25);
+  --error-foreground: oklch(0.72 0.16 25);
+  --warning: oklch(0.28 0.07 75);
+  --warning-foreground: oklch(0.8 0.13 75);
+  --info: oklch(0.25 0.05 240);
+  --info-foreground: oklch(0.72 0.12 240);
+
+  --border: oklch(0.28 0.01 250);
+  --input: oklch(0.28 0.01 250);
+  --ring: oklch(0.65 0.13 190);
+  --backdrop: oklch(0 0 0 / 0.7);
+  --shadow: oklch(0 0 0 / 0.6);
+  --shadow-layer-1: oklch(0 0 0 / 0.25);
+  --shadow-layer-2: oklch(0 0 0 / 0.2);
+  --shadow-layer-3: oklch(0 0 0 / 0.15);
+}

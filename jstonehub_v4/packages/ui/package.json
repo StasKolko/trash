@@ -1,0 +1,38 @@
+{
+  "name": "@packages/ui",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "exports": {
+    "./action": "./src/action.ts",
+    "./data-display": "./src/data-display.ts",
+    "./feedback": "./src/feedback.ts",
+    "./form": "./src/form.ts",
+    "./layout": "./src/layout.ts",
+    "./overlay": "./src/overlay.ts",
+    "./provider": "./src/provider.tsx",
+    "./theme": "./src/theme.ts",
+    "./typography": "./src/typography.ts"
+  },
+  "dependencies": {
+    "@packages/util": "workspace:*",
+    "solid-js": "catalog:frontend",
+    "lucide-solid": "catalog:frontend"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "@configs/vitest": "workspace:*",
+    "vite": "catalog:frontend-dev",
+    "vitest": "catalog:test",
+    "@vitest/coverage-v8": "catalog:test",
+    "@testing-library/jest-dom": "catalog:test",
+    "@solidjs/testing-library": "catalog:test"
+  }
+}

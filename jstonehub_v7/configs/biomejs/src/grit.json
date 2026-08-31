@@ -1,0 +1,8 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
+  "grit": {
+    "assist": { "enabled": false },
+    "formatter": { "enabled": false },
+    "linter": { "enabled": false }
+  }
+}

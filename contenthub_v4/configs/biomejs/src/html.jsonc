@@ -1,0 +1,23 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.6/schema.json",
+  "html": {
+    "experimentalFullSupportEnabled": true,
+    "parser": { "interpolation": false, "vue": false },
+    "assist": { "enabled": true },
+    "linter": { "enabled": true },
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineEnding": "lf",
+      "lineWidth": 80,
+      "attributePosition": "auto",
+      "bracketSameLine": false,
+      "selfCloseVoidElements": "always",
+      "whitespaceSensitivity": "css",
+      "trailingNewline": true,
+      // Domain: Vue and Svelte
+      "indentScriptAndStyle": false
+    }
+  }
+}

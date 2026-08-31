@@ -1,0 +1,23 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.6/schema.json",
+  "css": {
+    "assist": { "enabled": true },
+    "linter": { "enabled": true },
+    "globals": [],
+    "parser": {
+      "cssModules": true,
+      "tailwindDirectives": true,
+      "allowWrongLineComments": false
+    },
+    "formatter": {
+      "enabled": true,
+      "quoteStyle": "double",
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "lineEnding": "lf",
+      "lineWidth": 80,
+      "delimiterSpacing": false,
+      "trailingNewline": true
+    }
+  }
+}

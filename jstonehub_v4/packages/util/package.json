@@ -1,0 +1,30 @@
+{
+  "name": "@packages/util",
+  "version": "0.1.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "exports": {
+    "./assert": "./src/assert.ts",
+    "./css": "./src/css.ts",
+    "./dom": "./src/dom.ts",
+    "./guard": "./src/guard.ts",
+    "./id": "./src/id.ts"
+  },
+  "dependencies": {
+    "@paralleldrive/cuid2": "catalog:shared",
+    "tailwind-merge": "catalog:shared"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "@configs/vitest": "workspace:*",
+    "vite": "catalog:frontend-dev",
+    "vitest": "catalog:test",
+    "@vitest/coverage-v8": "catalog:test"
+  }
+}

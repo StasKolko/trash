@@ -1,0 +1,31 @@
+{
+  "name": "@packages/auth",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@packages/contract": "workspace:*",
+    "@packages/util": "workspace:*",
+    "solid-js": "catalog:frontend",
+    "valibot": "catalog:frontend"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "@configs/vitest": "workspace:*",
+    "vite": "catalog:frontend-dev",
+    "vitest": "catalog:test",
+    "@vitest/coverage-v8": "catalog:test",
+    "@testing-library/jest-dom": "catalog:test",
+    "@solidjs/testing-library": "catalog:test"
+  }
+}

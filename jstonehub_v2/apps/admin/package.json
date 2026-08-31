@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@configs/styles": "workspace:*",
+    "@packages/utils": "workspace:*",
+    "@packages/ui": "workspace:*",
+    "@packages/contracts": "workspace:*",
+    "@elysiajs/eden": "catalog:web",
+    "@tanstack/solid-table": "catalog:web",
+    "@tanstack/solid-router": "catalog:web",
+    "valibot": "catalog:web",
+    "solid-js": "catalog:web",
+    "lucide-solid": "catalog:web"
+  }
+}

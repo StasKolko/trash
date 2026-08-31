@@ -1,0 +1,32 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
+  "files": {
+    "ignoreUnknown": false,
+    "maxSize": 1048576,
+    "includes": [
+      "**",
+
+      // ROOT DIRS
+      "!**/.husky/**",
+      "!**/.qodo/**",
+      "!**/prompts/**",
+      "!**/docs/**",
+
+      // DIRS
+      "!**/.turbo/**",
+      "!**/.tanstack/**",
+      "!**/node_modules/**",
+      "!**/coverage/**",
+      "!**/dist/**",
+      "!**/build/**",
+      "!**/storage/**",
+      "!**/drizzle/**",
+
+      // ROOT FILES
+      "!**/bun.lock",
+
+      // FILES
+      "!**/routeTree.gen.ts"
+    ]
+  }
+}

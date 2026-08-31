@@ -1,0 +1,43 @@
+{
+  "name": "@apps/hub",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && tsc",
+    "start": "vite preview",
+
+    "typecheck": "tsc --build",
+
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@packages/contract": "workspace:*",
+    "@packages/devtool": "workspace:*",
+    "@packages/style": "workspace:*",
+    "@packages/util": "workspace:*",
+    "@elysiajs/eden": "catalog:frontend",
+    "@tanstack/solid-virtual": "catalog:frontend",
+    "@tanstack/solid-router": "catalog:frontend",
+    "@tanstack/solid-query": "catalog:frontend",
+    "@tanstack/solid-table": "catalog:frontend",
+    "@tanstack/solid-pacer": "catalog:frontend",
+    "@tanstack/solid-form": "catalog:frontend",
+    "solid-js": "catalog:frontend",
+    "lucide-solid": "catalog:frontend",
+    "valibot": "catalog:frontend"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "@configs/vite": "workspace:*",
+    "@configs/vitest": "workspace:*",
+    "vite": "catalog:frontend-dev",
+    "vitest": "catalog:test",
+    "@vitest/coverage-v8": "catalog:test",
+    "@testing-library/jest-dom": "catalog:test",
+    "@solidjs/testing-library": "catalog:test"
+  }
+}

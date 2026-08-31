@@ -1,0 +1,31 @@
+CREATE TYPE "public"."browser_platform" AS ENUM('Win32', 'Linux x86_64', 'MacIntel', 'Linux armv81');--> statement-breakpoint
+CREATE TYPE "public"."browser_vendor" AS ENUM('Google Inc.', 'Apple Computer, Inc.', '');--> statement-breakpoint
+CREATE TABLE "browser_fingerprints" (
+	"id" text PRIMARY KEY NOT NULL,
+	"label" text NOT NULL,
+	"is_active" boolean DEFAULT true NOT NULL,
+	"user_agent" text NOT NULL,
+	"platform" "browser_platform" NOT NULL,
+	"language" text NOT NULL,
+	"languages" text[] NOT NULL,
+	"screen_width" integer NOT NULL,
+	"screen_height" integer NOT NULL,
+	"color_depth" integer NOT NULL,
+	"timezone" text NOT NULL,
+	"timezone_offset" integer NOT NULL,
+	"hardware_concurrency" integer NOT NULL,
+	"max_touch_points" integer NOT NULL,
+	"cookie_enabled" boolean NOT NULL,
+	"webgl_vendor" text NOT NULL,
+	"webgl_renderer" text NOT NULL,
+	"avail_width" integer NOT NULL,
+	"avail_height" integer NOT NULL,
+	"pixel_ratio" real NOT NULL,
+	"device_memory" real,
+	"do_not_track" text,
+	"pdf_viewer_enabled" boolean NOT NULL,
+	"vendor" "browser_vendor" NOT NULL,
+	"app_version" text NOT NULL,
+	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
+	"updated_at" timestamp with time zone DEFAULT now() NOT NULL
+);

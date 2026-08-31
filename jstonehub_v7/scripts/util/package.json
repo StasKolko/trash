@@ -1,0 +1,22 @@
+{
+  "name": "@scripts/util",
+  "version": "0.1.1",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "exports": {
+    "./path": "./src/path.ts"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "@configs/vitest": "workspace:*",
+    "vitest": "catalog:test",
+    "@vitest/coverage-v8": "catalog:test"
+  }
+}

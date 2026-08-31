@@ -1,0 +1,291 @@
+{
+  "id": "f665c15e-2cfe-4dcb-b37c-5decac15bc62",
+  "prevId": "553ea845-ff55-4647-a3ee-810420851d2a",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.browser_fingerprints": {
+      "name": "browser_fingerprints",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "user_agent": {
+          "name": "user_agent",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "platform": {
+          "name": "platform",
+          "type": "browser_platform",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "language": {
+          "name": "language",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "languages": {
+          "name": "languages",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "screen_width": {
+          "name": "screen_width",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "screen_height": {
+          "name": "screen_height",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "color_depth": {
+          "name": "color_depth",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "timezone": {
+          "name": "timezone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "timezone_offset": {
+          "name": "timezone_offset",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hardware_concurrency": {
+          "name": "hardware_concurrency",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "max_touch_points": {
+          "name": "max_touch_points",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cookie_enabled": {
+          "name": "cookie_enabled",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "webgl_vendor": {
+          "name": "webgl_vendor",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "webgl_renderer": {
+          "name": "webgl_renderer",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "avail_width": {
+          "name": "avail_width",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "avail_height": {
+          "name": "avail_height",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pixel_ratio": {
+          "name": "pixel_ratio",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "device_memory": {
+          "name": "device_memory",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "do_not_track": {
+          "name": "do_not_track",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pdf_viewer_enabled": {
+          "name": "pdf_viewer_enabled",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "vendor": {
+          "name": "vendor",
+          "type": "browser_vendor",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "app_version": {
+          "name": "app_version",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.secret_voicer_credentials": {
+      "name": "secret_voicer_credentials",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "fingerprint_id": {
+          "name": "fingerprint_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "csrf_token": {
+          "name": "csrf_token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "secret_voicer_credentials_fingerprint_id_browser_fingerprints_id_fk": {
+          "name": "secret_voicer_credentials_fingerprint_id_browser_fingerprints_id_fk",
+          "tableFrom": "secret_voicer_credentials",
+          "tableTo": "browser_fingerprints",
+          "columnsFrom": [
+            "fingerprint_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.browser_platform": {
+      "name": "browser_platform",
+      "schema": "public",
+      "values": [
+        "Win32",
+        "Linux x86_64",
+        "MacIntel",
+        "Linux armv81"
+      ]
+    },
+    "public.browser_vendor": {
+      "name": "browser_vendor",
+      "schema": "public",
+      "values": [
+        "Google Inc.",
+        "Apple Computer, Inc.",
+        ""
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

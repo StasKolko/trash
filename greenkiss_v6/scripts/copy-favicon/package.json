@@ -1,0 +1,15 @@
+{
+  "name": "@scripts/copy-favicon",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "format": "prettier . --write",
+    "lint": "eslint . --fix",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "@configs/eslint": "workspace:*"
+  }
+}

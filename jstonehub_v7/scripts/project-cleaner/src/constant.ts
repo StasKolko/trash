@@ -1,0 +1,14 @@
+const BUILTIN_EXCLUDES = ["**/.git", "**/.svn"] as const;
+
+const RETRY_COUNT_MAX = 3;
+
+const RETRY_DELAY_MS = 100;
+
+const RETRYABLE_ERROR_CODES = new Set(["EBUSY", "EPERM", "ENOTEMPTY"]);
+
+export {
+  BUILTIN_EXCLUDES,
+  RETRY_COUNT_MAX,
+  RETRY_DELAY_MS,
+  RETRYABLE_ERROR_CODES,
+};

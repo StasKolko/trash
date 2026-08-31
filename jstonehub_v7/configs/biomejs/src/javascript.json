@@ -1,0 +1,44 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
+  "javascript": {
+    "experimentalEmbeddedSnippetsEnabled": true,
+    "jsxRuntime": "transparent",
+    "assist": { "enabled": true },
+    "linter": { "enabled": true },
+    "globals": [
+      "Bun",
+      "describe",
+      "it",
+      "expect",
+      "afterEach",
+      "beforeEach",
+      "vi",
+      "afterAll",
+      "beforeAll"
+    ],
+    "parser": {
+      "gritMetavariables": false,
+      "jsxEverywhere": false,
+      "unsafeParameterDecoratorsEnabled": true
+    },
+    "formatter": {
+      "enabled": true,
+      "quoteStyle": "double",
+      "arrowParentheses": "always",
+      "attributePosition": "auto",
+      "bracketSameLine": false,
+      "bracketSpacing": true,
+      "expand": "auto",
+      "indentStyle": "space",
+      "indentWidth": 2,
+      "jsxQuoteStyle": "double",
+      "lineEnding": "lf",
+      "lineWidth": 80,
+      "operatorLinebreak": "before",
+      "quoteProperties": "asNeeded",
+      "semicolons": "always",
+      "trailingCommas": "all",
+      "trailingNewline": true
+    }
+  }
+}

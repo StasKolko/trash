@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./tokens/colors.css";
+@import "./tokens/radius.css";
+@import "./tokens/transitions.css";
+@import "./tokens/z-index.css";
+@import "./base.css";
+@import "./utilities.css";
+
+@source "../../../packages/ui/src/**/*.{tsx,ts}";
+@source "../../../packages/auth/src/**/*.{tsx,ts}";
+
+@custom-variant light (&:is(.light *));

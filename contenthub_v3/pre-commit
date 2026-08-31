@@ -1,0 +1,3 @@
+bun run check
+bun run test:coverage
+echo "Husky pre-commit hook executed successfully"

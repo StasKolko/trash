@@ -1,0 +1,33 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.6/schema.json",
+  "linter": {
+    "rules": {
+      "security": {
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                    SECRETS & SENSITIVE DATA                    ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        // OFF - too many false positives
+        "noSecrets": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                     GENERAL SECURITY                           ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noBlankTarget": "error",
+        "noGlobalEval": "error",
+
+        // Disallow javascript: URLs — a form of eval that can lead to XSS.
+        // Universal rule (works for Solid, HTML, JS), recommended by default.
+        "noScriptUrl": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          REACT                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noDangerouslySetInnerHtmlWithChildren": "off",
+        "noDangerouslySetInnerHtml": "off"
+      }
+    }
+  }
+}

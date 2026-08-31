@@ -1,0 +1,18 @@
+// {
+//   "files.exclude": {
+//     // ROOT DIRS
+//     ".qodo": true,
+
+//     // DIRS
+//     "**/.turbo": true,
+//     "**/coverage": true,
+//     "**/node_modules": true,
+
+//     // ROOT FILES
+//     ".gitattributes": true,
+//     "biome.json": true,
+//     "bun.lock": true
+
+//     // FILES
+//   }
+// }

@@ -1,0 +1,44 @@
+{
+  "name": "@apps/api",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "cd ../.. && bun --watch --env-file=apps/api/.env.development apps/api/src/app/main.ts",
+    "build": "bun build src/app/main.ts --minify --outdir dist --target bun",
+    "start": "bun dist/main.js",
+
+    "typecheck": "tsc --noEmit",
+
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+
+    "db:generate": "bun --env-file=.env.development drizzle-kit generate",
+    "db:migrate": "bun --env-file=.env.development src/shared/db/migrate.ts",
+    "db:push": "bun --env-file=.env.development drizzle-kit push",
+    "db:studio": "bun --env-file=.env.development drizzle-kit studio"
+  },
+  "dependencies": {
+    "@packages/contract": "workspace:*",
+    "@packages/util": "workspace:*",
+    "@elysiajs/cron": "catalog:api",
+    "@elysiajs/cors": "catalog:api",
+    "elysia": "catalog:api",
+    "drizzle-orm": "catalog:api",
+    "drizzle-typebox": "catalog:api",
+    "jose": "catalog:api",
+    "arctic": "catalog:api",
+    "typebox": "catalog:backend",
+    "bullmq": "catalog:backend",
+    "ioredis": "catalog:backend",
+    "minio": "catalog:backend"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "@configs/vitest": "workspace:*",
+    "vitest": "catalog:test",
+    "@vitest/coverage-v8": "catalog:test",
+    "drizzle-kit": "catalog:api-dev"
+  }
+}

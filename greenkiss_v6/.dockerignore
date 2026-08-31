@@ -1,0 +1,48 @@
+# Dependencies
+**/node_modules/
+
+# Context
+context/
+
+# Scripts
+scripts/
+!scripts/copy-favicon
+
+# Testing
+**/coverage/
+**/__tests__/
+**/*.test.*
+**/*.spec.*
+
+# Cache
+**/.turbo/
+
+# Build Outputs
+**/dist/
+
+# Misc
+.vscode/
+
+# AI
+.qodo/
+
+# Docker
+**/Dockerfile*
+**/docker-compose*
+**/.dockerignore
+
+# Env
+.env*
+!.env.local
+
+# Git
+.git/
+.husky/
+.gitattributes
+.gitignore
+
+# Documentation
+**/README.md
+**/CHANGELOG.md
+**/LICENSE
+**/docs/

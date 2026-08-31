@@ -1,0 +1,11 @@
+{
+  "name": "@configs/styles",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.css",
+  "devDependencies": {
+    "tailwindcss": "catalog:frontend-dev",
+    "tw-animate-css": "catalog:frontend-dev"
+  }
+}

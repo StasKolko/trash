@@ -1,0 +1,1 @@
+export const DEBOUNCE_SEARCH_DEFAULT = 400;

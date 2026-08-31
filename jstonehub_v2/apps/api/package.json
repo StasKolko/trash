@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "@packages/utils": "workspace:*",
+    "@packages/contracts": "workspace:*",
+    "@elysiajs/static": "catalog:api",
+    "@elysiajs/cron": "catalog:api",
+    "@sinclair/typebox": "catalog:api",
+    "fflate": "catalog:api",
+    "elysia": "catalog:api",
+    "drizzle-orm": "catalog:api",
+    "drizzle-typebox": "catalog:api"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "@types/pg": "^8.16.0",
+    "drizzle-kit": "catalog:api"
+  }
+}

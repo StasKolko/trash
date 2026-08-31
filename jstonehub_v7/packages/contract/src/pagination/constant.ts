@@ -1,0 +1,19 @@
+type PaginationOrder = (typeof PAGINATION_ORDERS)[number];
+
+const PAGINATION_ORDERS = ["asc", "desc"] as const;
+const DEFAULT_PAGINATION_ORDER = "asc" as const;
+
+const PAGINATION_QUERY_MAX_LENGTH = 200;
+
+const PAGINATION_FILTER_ALL = "all" as const;
+
+const DEFAULT_PAGINATION_CURSOR_LIMIT = 50;
+
+export type { PaginationOrder };
+export {
+  DEFAULT_PAGINATION_CURSOR_LIMIT,
+  DEFAULT_PAGINATION_ORDER,
+  PAGINATION_FILTER_ALL,
+  PAGINATION_ORDERS,
+  PAGINATION_QUERY_MAX_LENGTH,
+};

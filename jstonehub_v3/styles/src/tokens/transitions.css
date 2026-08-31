@@ -1,0 +1,19 @@
+@theme inline {
+  /* === Durations === */
+  --duration-instant: 50ms;
+  --duration-fast: 100ms;
+  --duration-normal: 150ms;
+  --duration-slow: 200ms;
+  --duration-long: 300ms;
+
+  /* === Timing Functions === */
+  --ease-smooth: cubic-bezier(0.2, 0, 0, 1);
+  --ease-snap: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* === Component-specific === */
+
+  --transition-toggle:
+    transform var(--duration-long) var(--ease-snap),
+    background-color var(--duration-fast) var(--ease-smooth),
+    opacity var(--duration-fast) var(--ease-smooth);
+}

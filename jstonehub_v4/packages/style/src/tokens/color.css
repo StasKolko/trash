@@ -1,0 +1,74 @@
+@theme inline {
+  /* === Base === */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* === Subtle === */
+  --color-subtle: var(--subtle);
+  --color-border: var(--border);
+
+  /* === Ui === */
+  --color-card: var(--card);
+  --color-dialog: var(--dialog);
+  --color-sheet: var(--sheet);
+  --color-tooltip: var(--tooltip);
+
+  /* === Control (form elements) === */
+  --color-control: var(--control);
+  --color-control-border: var(--control-border);
+
+  /* === Scrollbar === */
+  --color-scrollbar-track: var(--scrollbar-track);
+  --color-scrollbar-thumb: var(--scrollbar-thumb);
+  --color-scrollbar-thumb-hover: var(--scrollbar-thumb-hover);
+
+  /* === CTA === */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  /* === Interactive States === */
+  --color-active: var(--active);
+  --color-active-foreground: var(--active-foreground);
+
+  /* === Selection === */
+  --color-selection: var(--selection);
+  --color-selection-foreground: var(--selection-foreground);
+
+  /* === Semantic ===
+     - background: soft/muted
+     - foreground: contrasting (readable) 
+     - border: between bg and fg
+  */
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-border: var(--success-border);
+
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+  --color-error-border: var(--error-border);
+
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-warning-border: var(--warning-border);
+
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-info-border: var(--info-border);
+
+  /* === Utility === */
+  --color-ring: var(--ring);
+  --color-ring-error: var(--ring-error);
+  --color-backdrop: var(--backdrop);
+
+  /* === Logo === */
+  --color-logo-from: var(--logo-from);
+  --color-logo-via: var(--logo-via);
+  --color-logo-to: var(--logo-to);
+  --color-logo-accent: var(--logo-accent);
+}

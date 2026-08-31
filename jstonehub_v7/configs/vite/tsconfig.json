@@ -1,0 +1,4 @@
+{
+  "extends": "@configs/typescript/vite",
+  "include": ["src"]
+}

@@ -1,0 +1,110 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
+  "linter": {
+    "rules": {
+      "a11y": {
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                     KEYBOARD & FOCUS                           ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noAccessKey": "error",
+        "noAutofocus": "error",
+        "noPositiveTabindex": "error",
+        "noNoninteractiveTabindex": "error",
+        "useFocusableInteractive": "error",
+        "useAriaActivedescendantWithTabindex": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                      ARIA ATTRIBUTES                           ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noAriaHiddenOnFocusable": "error",
+        "noAriaUnsupportedElements": "error",
+        "useValidAriaProps": "error",
+        "useValidAriaRole": "error",
+        "useValidAriaValues": "error",
+        "useAriaPropsForRole": "error",
+        "useAriaPropsSupportedByRole": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                    ROLES & SEMANTICS                           ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noInteractiveElementToNoninteractiveRole": "error",
+        "noNoninteractiveElementToInteractiveRole": "error",
+        "noRedundantRoles": "error",
+        "useSemanticElements": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                  INTERACTIVE ELEMENTS                          ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noNoninteractiveElementInteractions": "error",
+        "noStaticElementInteractions": "error",
+        "useKeyWithClickEvents": "error",
+        "useKeyWithMouseEvents": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                    IMAGES & MEDIA                              ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useAltText": "error",
+        "noRedundantAlt": "error",
+        "noSvgWithoutTitle": "error",
+        "useMediaCaption": "error",
+        "useIframeTitle": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                   LINKS & NAVIGATION                           ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useValidAnchor": "error",
+        // warn: not recommended by default, many false positives
+        "useAnchorContent": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                    FORMS & LABELS                              ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noLabelWithoutControl": {
+          "level": "error",
+          "options": {
+            "inputComponents": [
+              "Checkbox",
+              "IndeterminateCheckbox",
+              "Switch",
+              "NumberInput",
+              "PasswordInput",
+              "TextInput"
+            ],
+            "labelComponents": ["Label"],
+            "labelAttributes": ["for"]
+          }
+        },
+        "useButtonType": "error",
+        "useValidAutocomplete": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                   TABLES & STRUCTURE                           ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noHeaderScope": "error",
+        "useHeadingContent": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                   DOCUMENT & LANGUAGE                          ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useHtmlLang": "error",
+        "useValidLang": "error",
+        "noDistractingElements": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                           CSS                                  ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useGenericFontNames": "error"
+      }
+    }
+  }
+}

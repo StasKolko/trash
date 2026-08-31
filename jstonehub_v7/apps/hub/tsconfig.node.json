@@ -1,0 +1,7 @@
+{
+  "extends": "@configs/typescript/vite",
+  "include": ["vite.config.ts"],
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo"
+  }
+}

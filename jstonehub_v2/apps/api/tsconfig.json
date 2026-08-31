@@ -1,0 +1,9 @@
+{
+  "extends": ["@configs/typescript/backend", "../../tsconfig.base.json"],
+  "compilerOptions": {
+    "paths": {
+      "#api/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*.ts"]
+}

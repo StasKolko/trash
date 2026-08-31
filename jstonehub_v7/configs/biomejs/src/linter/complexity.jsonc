@@ -1,0 +1,141 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
+  "linter": {
+    "rules": {
+      "complexity": {
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                     IMPORTS & EXPORTS                          ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noUselessEmptyExport": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         TESTING                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noExcessiveNestedTestSuites": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                   USELESS CODE & PATTERNS                      ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noCommaOperator": "error",
+        "noImplicitCoercions": "error",
+        "noUselessCatch": "error",
+        "noUselessCatchBinding": "error",
+        "noUselessContinue": "error",
+        "noUselessLabel": "error",
+        "noUselessLoneBlockStatements": "error",
+        "noUselessRename": "error",
+        "noUselessSwitchCase": "error",
+        "noUselessTernary": "error",
+        "noUselessThisAlias": "error",
+        "noUselessUndefined": "error",
+        "noUselessUndefinedInitialization": "error",
+        "noVoid": "error",
+        "useWhile": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                       TYPESCRIPT                               ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noBannedTypes": "error",
+        "noEmptyTypeParameters": "error",
+        "noUselessTypeConstraint": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         NUMBERS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useNumericLiterals": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         STRINGS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noUselessStringConcat": "error",
+        "noUselessStringRaw": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                        BOOLEANS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noExtraBooleanCast": "error",
+        "useSimplifiedLogicExpression": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          REGEX                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noAdjacentSpacesInRegex": "error",
+        "noUselessEscapeInRegex": "error",
+        "useRegexLiterals": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                           DATE                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useDateNow": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          ARRAYS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noFlatMapIdentity": "error",
+        "noForEach": "error",
+        "useFlatMap": "error",
+        "useIndexOf": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         OBJECTS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useLiteralKeys": "error",
+        "useOptionalChain": "error",
+        "useSimpleNumberKeys": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                        FUNCTIONS                               ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noArguments": "error",
+        "noExcessiveCognitiveComplexity": "error",
+        "noExcessiveLinesPerFunction": {
+          "level": "error",
+          "options": {
+            "maxLines": 50,
+            "skipBlankLines": true,
+            "skipIifes": false
+          }
+        },
+        "useArrowFunction": "error",
+        "useMaxParams": {
+          "level": "error",
+          "options": {
+            "max": 3
+          }
+        },
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         CLASSES                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noStaticOnlyClass": "error",
+        "noThisInStatic": "error",
+        "noUselessConstructor": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                           JSX                                  ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noUselessFragments": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                           CSS                                  ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noImportantStyles": "error"
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "workspaces": {
+    "catalogs": {
+      "frontend": {
+        "@elysiajs/eden": "1.4.9",
+        "@tanstack/solid-form": "1.33.0",
+        "@tanstack/solid-pacer": "0.21.1",
+        "@tanstack/solid-query": "5.101.2",
+        "@tanstack/solid-router": "1.170.17",
+        "@tanstack/solid-table": "8.21.3",
+        "@tanstack/solid-virtual": "3.13.32",
+        "lucide-solid": "1.23.0",
+        "solid-js": "1.9.14",
+        "valibot": "1.4.2"
+      },
+      "shared": {
+        "@paralleldrive/cuid2": "3.3.0",
+        "tailwind-merge": "3.6.0"
+      }
+    }
+  },
+  "scripts": {
+    "bundle:prompts": "bun run scripts/prompt-bundler/src/index.ts",
+
+    "clean": "bun run scripts/project-cleaner/src/index.ts"
+  }
+}

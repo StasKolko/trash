@@ -1,0 +1,18 @@
+{
+	// Use 2 spaces instead of tabs
+	"editor.insertSpaces": true,
+	"editor.tabSize": 2,
+
+	// Use Linux-style line endings (LF)
+	"files.eol": "\n",
+
+	// Use Biome for linting and formatting
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		// Automatically apply all Biome fixes on save
+		"source.fixAll.biome": "explicit",
+		// Automatically organize imports with Biome on save
+		"source.organizeImports.biome": "explicit"
+	}
+}

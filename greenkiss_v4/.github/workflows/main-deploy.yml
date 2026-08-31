@@ -1,0 +1,65 @@
+name: Docker Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    uses: ./.github/workflows/reusable-build-push-cleanup.yml
+    with:
+      registry: ${{ vars.REGISTRY }}
+      image_name: ${{ vars.IMAGE_NAME }}
+      cdn_base_url: ${{ vars.CDN_BASE_URL }}
+    secrets:
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
+      dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+      registry_username: ${{ vars.REGISTRY_USERNAME }}
+      registry_token: ${{ secrets.REGISTRY_TOKEN }}
+
+  # Шаг 2: Развертывание на сервере
+  deploy:
+    needs: build
+    uses: ./.github/workflows/reusable-deploy.yml
+    with:
+      # Входные данные для развертывания
+      ssh_host: ${{ vars.SSH_HOST }}
+      ssh_port: ${{ vars.SSH_PORT }}
+      ssh_username: ${{ vars.SSH_USERNAME }}
+      deploy_dir: ${{ vars.DEPLOY_DIR }}
+      domain: ${{ vars.DOMAIN }}
+      traefik_host: ${{ vars.TRAEFIK_HOST }}
+      acme_email: ${{ vars.ACME_EMAIL }}
+      registry: ${{ vars.REGISTRY }}
+      image_name: ${{ vars.IMAGE_NAME }}
+      image_tag: ${{ needs.build.outputs.image_tag }}
+      # Переменные для приложения
+      auth_yandex_id: ${{ vars.AUTH_YANDEX_ID }}
+      admin_emails: ${{ vars.ADMIN_EMAILS }}
+      manager_emails: ${{ vars.MANAGER_EMAILS }}
+      s3_endpoint: ${{ vars.S3_ENDPOINT }}
+      s3_bucket: ${{ vars.S3_BUCKET }}
+      s3_region: ${{ vars.S3_REGION }}
+      s3_force_path_style: ${{ vars.S3_FORCE_PATH_STYLE }}
+      cdn_base_url: ${{ vars.CDN_BASE_URL }}
+    secrets:
+      # Секреты для подключения и настройки
+      ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+      ssh_passphrase: ${{ secrets.SSH_PASSPHRASE }}
+      registry_token: ${{ secrets.REGISTRY_TOKEN }}
+      registry_username: ${{ vars.REGISTRY_USERNAME }}
+      dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
+      dockerhub_username: ${{ vars.DOCKERHUB_USERNAME }}
+      # Секреты для приложения
+      regru_username: ${{ secrets.REGRU_USERNAME }}
+      regru_password: ${{ secrets.REGRU_PASSWORD }}
+      auth_secret: ${{ secrets.AUTH_SECRET }}
+      auth_yandex_secret: ${{ secrets.AUTH_YANDEX_SECRET }}
+      database_url: ${{ secrets.DATABASE_URL }}
+      s3_access_key: ${{ secrets.S3_ACCESS_KEY }}
+      s3_secret_key: ${{ secrets.S3_SECRET_KEY }}

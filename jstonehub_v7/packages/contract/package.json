@@ -1,0 +1,40 @@
+{
+  "name": "@packages/contract",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "exports": {
+    "./feature/user": "./src/feature/user.ts",
+    "./pagination/client": "./src/pagination/client.ts",
+    "./pagination/server": "./src/pagination/server.ts",
+    "./permission/admin": "./src/permission/admin.ts",
+    "./permission/org": "./src/permission/org.ts",
+    "./permission/resource": "./src/permission/resource.ts",
+    "./permission/scope": "./src/permission/scope.ts",
+    "./permission/check": "./src/permission/check.ts",
+    "./permission/extract": "./src/permission/extract.ts",
+    "./permission/format": "./src/permission/format.ts",
+    "./auth-error": "./src/auth-error.ts",
+    "./device": "./src/device.ts",
+    "./http-status": "./src/http-status.ts"
+  },
+  "dependencies": {
+    "@packages/util": "workspace:*",
+    "typebox": "catalog:backend",
+    "valibot": "catalog:frontend"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "@configs/vitest": "workspace:*",
+    "vitest": "catalog:test",
+    "vite": "catalog:frontend-dev",
+    "@vitest/coverage-v8": "catalog:test"
+  }
+}

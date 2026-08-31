@@ -1,0 +1,66 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.6/schema.json",
+  "linter": {
+    "rules": {
+      "performance": {
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                     IMPORTS & EXPORTS                          ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noDynamicNamespaceImportAccess": "error",
+        "noNamespaceImport": "error",
+        "noReExportAll": "error",
+
+        // Barrel files define explicit public API for modules.
+        // Only exports from index.ts are considered public — internal implementation stays hidden.
+        // Enforces clear module boundaries and prevents importing private internals.
+        "noBarrelFile": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                    RUNTIME PERFORMANCE                         ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noAccumulatingSpread": "error",
+        "noAwaitInLoops": "error",
+        "noDelete": "error",
+        // Synchronous scripts block page parsing and hurt load performance.
+        // Universal HTML/JS optimization — not framework-specific.
+        "noSyncScripts": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          REGEX                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useTopLevelRegex": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                        SOLID JS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useSolidForComponent": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          REACT                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        // React-specific rerender optimization (inline functions in JSX props).
+        // Not relevant for Solid.js — components render once, inline functions are idiomatic.
+        "noJsxPropsBind": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         NEXT JS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noImgElement": "off",
+        "noUnwantedPolyfillio": "off",
+        "useGoogleFontPreconnect": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          VUE JS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useVueVapor": "off"
+      }
+    }
+  }
+}

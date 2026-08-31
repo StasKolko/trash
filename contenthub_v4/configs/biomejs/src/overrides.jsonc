@@ -1,0 +1,25 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.6/schema.json",
+  "overrides": [
+    {
+      "includes": [
+        "**/vite.config.ts",
+        "**/vitest.config.ts",
+        "**/drizzle.config.ts"
+      ],
+      "linter": {
+        "rules": {
+          "style": { "noDefaultExport": "off" }
+        }
+      }
+    },
+    {
+      "includes": ["scripts/**", "packages/util-script/**"],
+      "linter": {
+        "rules": {
+          "correctness": { "noNodejsModules": "off" }
+        }
+      }
+    }
+  ]
+}

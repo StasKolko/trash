@@ -1,0 +1,70 @@
+{
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+
+    "bundle:prompts": "bun run scripts/prompt-bundler/src/index.ts",
+    "clean": "bun run scripts/project-cleaner/src/index.ts",
+
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:reset": "docker compose down -v && docker compose up -d",
+    "docker:logs": "docker compose logs -f",
+
+    "db:generate": "turbo run db:generate",
+    "db:migrate": "turbo run db:migrate",
+    "db:push": "turbo run db:push",
+    "db:studio": "turbo run db:studio"
+  },
+  "workspaces": {
+    "packages": ["apps/*", "configs/*", "packages/*", "scripts/*"],
+    "catalogs": {
+      "shared": {
+        "@paralleldrive/cuid2": "3.3.0",
+        "tailwind-merge": "3.5.0"
+      },
+      "backend": {
+        "typebox": "1.1.23",
+        "bullmq": "5.74.1",
+        "ioredis": "5.10.1",
+        "minio": "8.0.7"
+      },
+      "api": {
+        "drizzle-orm": "0.45.2",
+        "drizzle-typebox": "0.3.3",
+        "drizzle-kit": "0.31.10",
+        "@elysiajs/cron": "1.4.1",
+        "@elysiajs/cors": "1.4.1",
+        "elysia": "1.4.28",
+        "jose": "6.2.2",
+        "arctic": "3.7.0"
+      },
+      "api-dev": {
+        "drizzle-kit": "0.31.10"
+      },
+      "worker": {},
+      "worker-dev": {},
+      "frontend": {
+        "@elysiajs/eden": "1.4.9",
+        "@tanstack/solid-virtual": "3.13.23",
+        "@tanstack/solid-router": "1.168.19",
+        "@tanstack/solid-query": "5.99.0",
+        "@tanstack/solid-table": "8.21.3",
+        "@tanstack/solid-pacer": "0.20.1",
+        "@tanstack/solid-form": "1.29.0",
+        "solid-js": "1.9.12",
+        "lucide-solid": "1.8.0",
+        "valibot": "1.3.1"
+      }
+    }
+  },
+  "devDependencies": {
+    "@configs/biomejs": "workspace:*",
+    "@biomejs/biome": "2.4.12",
+    "@types/bun": "latest",
+    "husky": "9.1.7",
+    "turbo": "2.9.6",
+    "typescript": "6.0.2"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@configs/vite",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    ".": "./src/define-frontend-config.ts"
+  },
+  "devDependencies": {
+    "@configs/typescript": "workspace:*",
+    "@tailwindcss/vite": "catalog:frontend-dev",
+    "@tanstack/devtools-vite": "catalog:frontend-dev",
+    "@tanstack/router-plugin": "catalog:frontend-dev",
+    "vite-plugin-solid": "catalog:frontend-dev",
+    "vite": "catalog:frontend-dev"
+  }
+}

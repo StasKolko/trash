@@ -1,0 +1,267 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.6/schema.json",
+  "linter": {
+    "rules": {
+      "style": {
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         GRAPHQL                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useGraphqlNamingConvention": "off",
+        "noRootType": "off",
+        "useInputName": "off",
+        "useLoneExecutableDefinition": "off",
+        "useConsistentGraphqlDescriptions": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                        FILENAMES                               ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useFilenamingConvention": {
+          "level": "error",
+          "options": {
+            "filenameCases": ["kebab-case"],
+            "strictCase": true,
+            "requireAscii": true
+          }
+        },
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         IMPORTS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noRestrictedImports": "error",
+        "useImportType": {
+          "level": "error",
+          "options": {
+            "style": "separatedType"
+          }
+        },
+        "useNodeAssertStrict": "error",
+        "useNodejsImportProtocol": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         EXPORTS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noCommonJs": "error",
+        "noDefaultExport": "error",
+        "noExportedImports": "error",
+        "useExportsLast": "error",
+        "useExportType": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                   CODE STYLE & READABILITY                     ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noContinue": "error",
+        "noMagicNumbers": "error",
+        "noMultiAssign": "error",
+        "noMultilineString": "error",
+        "noNegationElse": "error",
+        "noNestedTernary": "error",
+        "noShoutyConstants": "error",
+        "noSubstr": "error",
+        "noUnusedTemplateLiteral": "error",
+        "noUselessElse": "error",
+        "noYodaExpression": "error",
+        "useArrayLiterals": "error",
+        "useAtIndex": "error",
+        "useBlockStatements": "error",
+        "useCollapsedElseIf": "error",
+        "useCollapsedIf": "error",
+        "useConsistentArrowReturn": "error",
+        "useConsistentBuiltinInstantiation": "error",
+        "useConsistentObjectDefinitions": "error",
+        "useDefaultParameterLast": "error",
+        "useConst": "error",
+        "useDefaultSwitchClause": "error",
+        "useDeprecatedReason": "error",
+        "useErrorCause": "error",
+        "useExplicitLengthCheck": "error",
+        "useExponentiationOperator": "error",
+        "useForOf": "error",
+        "useGroupedAccessorPairs": "error",
+        "useNumberNamespace": "error",
+        "useNumericSeparators": "error",
+        "useObjectSpread": "error",
+        "useShorthandAssign": "error",
+        "useSingleVarDeclarator": "error",
+        "useSpreadOverApply": "error",
+        "useSymbolDescription": "error",
+        "useTemplate": "error",
+        "useThrowNewError": "error",
+        "useThrowOnlyError": "error",
+        "useTrimStartEnd": "error",
+        "useDestructuring": "error",
+
+        "noExcessiveClassesPerFile": "off",
+        "noTernary": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                       FILE SIZE LIMITS                         ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noExcessiveLinesPerFile": {
+          "level": "error",
+          "options": {
+            "maxLines": 300
+          }
+        },
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                    OPERATORS & EXPRESSIONS                     ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        // ++ / -- banned (ASI footguns), but allowed in for-loop afterthoughts.
+        "noIncrementDecrement": {
+          "level": "error",
+          "options": {
+            "allowForLoopAfterthoughts": true
+          }
+        },
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                    NAMING CONVENTIONS                          ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useNamingConvention": {
+          "level": "error",
+          "options": {
+            "requireAscii": true,
+            "strictCase": true,
+            "conventions": [
+              {
+                "selector": {
+                  "kind": "objectLiteralProperty"
+                },
+                "match": ".*"
+              },
+              {
+                "selector": {
+                  "kind": "typeProperty"
+                },
+                "match": ".*"
+              }
+            ]
+          }
+        },
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                  MUTABILITY & SIDE EFFECTS                     ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noParameterAssign": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                   ENVIRONMENT & GLOBALS                        ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noProcessEnv": "error",
+        "noRestrictedGlobals": "error",
+        // Prefer globalThis over window/self/global for portable code.
+        "useGlobalThis": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                       TYPESCRIPT                               ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useConsistentTypeDefinitions": {
+          "level": "error",
+          "options": {
+            "style": "type"
+          }
+        },
+        "useConsistentArrayType": {
+          "level": "error",
+          "options": {
+            "syntax": "shorthand"
+          }
+        },
+        "useConsistentMemberAccessibility": {
+          "level": "error",
+          "options": {
+            "accessibility": "explicit"
+          }
+        },
+        "useConsistentMethodSignatures": "error",
+        "noEnum": "error",
+        "noInferrableTypes": "error",
+        "noNamespace": "error",
+        "noNonNullAssertion": "error",
+        "noParameterProperties": "error",
+        "noRestrictedTypes": "error",
+        "useAsConstAssertion": "error",
+        "useReadonlyClassProperties": "error",
+        "useShorthandFunctionType": "error",
+        "useUnifiedTypeSignatures": "error",
+
+        // Enums are banned — use `as const` objects instead.
+        "useEnumInitializers": "off",
+        "useLiteralEnumMembers": "off",
+        // useConsistentEnumValueType: off — enums are banned, nothing to check
+        // (also a `types`-domain rule that would enable the heavier type scanner).
+        "useConsistentEnumValueType": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         TESTING                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noDoneCallback": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                           JSX                                  ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useConsistentCurlyBraces": "error",
+        "useSelfClosingElements": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                           I18N                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        // i18n: Not using translation system — JSX string literals allowed.
+        "noJsxLiterals": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          REACT                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useComponentExportOnlyModules": "off",
+        "useReactFunctionComponents": "off",
+        "useFragmentSyntax": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          VUE JS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noVueOptionsApi": "off",
+        "useVueMultiWordComponentNames": "off",
+        "useVueHyphenatedAttributes": "off",
+        "useVueDefineMacrosOrder": "off",
+        "useVueConsistentVOnStyle": "off",
+        "useVueConsistentVBindStyle": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         NEXT JS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noHeadElement": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                           HTML                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noImplicitBoolean": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                           CSS                                  ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noDescendingSpecificity": "error",
+        "noHexColors": "error",
+        "noValueAtRule": "error"
+      }
+    }
+  }
+}

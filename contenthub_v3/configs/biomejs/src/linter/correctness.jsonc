@@ -1,0 +1,223 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.6/schema.json",
+  "linter": {
+    "rules": {
+      "correctness": {
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                     IMPORTS & EXPORTS                          ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noPrivateImports": "error",
+        "noUndeclaredDependencies": "error",
+        "noUnusedImports": "error",
+        "useJsonImportAttributes": "error",
+
+        // Redundant with TypeScript — TS already handles unresolved imports.
+        "noUnresolvedImports": "off",
+        // Modern bundlers (Vite, esbuild, Bun) resolve extensions automatically.
+        "useImportExtensions": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                    ES MODULES & RUNTIME                        ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noGlobalDirnameFilename": "error",
+        "noNodejsModules": "error",
+        "noProcessGlobal": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                     VARIABLES & SCOPE                          ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noConstAssign": "error",
+        "noInvalidUseBeforeDeclaration": "error",
+        "noInnerDeclarations": "error",
+        "noUndeclaredVariables": {
+          "level": "error",
+          "options": {
+            "checkTypes": true
+          }
+        },
+        "noUnusedVariables": "error",
+        "noUnusedFunctionParameters": "error",
+        "noUnusedPrivateClassMembers": "error",
+        "noUnusedLabels": "error",
+        "noSelfAssign": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                      LOGIC ERRORS                              ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noConstantCondition": "error",
+        "noConstantMathMinMaxClamp": "error",
+        "noUnreachable": "error",
+        "useValidForDirection": "error",
+        "useValidTypeof": "error",
+        "useIsNan": "error",
+        "useParseIntRadix": "error",
+        "noStringCaseMismatch": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         CLASSES                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noConstructorReturn": "error",
+        "noInvalidConstructorSuper": "error",
+        "noUnreachableSuper": "error",
+        "noSetterReturn": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                  OBJECTS & INSTANTIATION                       ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noUnusedInstantiation": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                      BUILT-INS & GLOBALS                       ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noGlobalObjectCalls": "error",
+        "noInvalidBuiltinInstantiation": "error",
+        "noPrecisionLoss": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                     SYNTAX & PATTERNS                          ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noEmptyPattern": "error",
+        "noSwitchDeclarations": "error",
+        "noNonoctalDecimalEscape": "error",
+        "noUnsafeFinally": "error",
+        "noUnsafeOptionalChaining": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          REGEX                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noEmptyCharacterClassInRegex": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                       GENERATORS                               ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useYield": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                       TYPESCRIPT                               ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noVoidTypeReturn": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          JSDOC                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useSingleJsDocAsterisk": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                           CSS                                  ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noInvalidDirectionInLinearGradient": "error",
+        "noInvalidGridAreas": "error",
+        "noInvalidPositionAtImportRule": "error",
+        "noMissingVarFunction": "error",
+        "noUnknownFunction": "error",
+        "noUnknownMediaFeatureName": "error",
+        "noUnknownProperty": "error",
+        "noUnknownPseudoClass": "error",
+        "noUnknownPseudoElement": "error",
+        "noUnknownTypeSelector": "error",
+        "noUnknownUnit": "error",
+        "noUnmatchableAnbSelector": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                        HTML / A11Y                             ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useImageSize": "error",
+        "noDuplicateAttributes": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         GRAPHQL                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "useGraphqlNamedOperations": "off",
+        "noDuplicateArgumentNames": "off",
+        "noDuplicateEnumValueNames": "off",
+        "noDuplicateInputFieldNames": "off",
+        "noDuplicateVariableNames": "off",
+        "useLoneAnonymousOperation": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                       SOLID JS                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noSolidDestructuredProps": "error",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                     JSX (General)                              ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noNestedComponentDefinitions": "error",
+        "noVoidElementsWithChildren": "error",
+        "noRestrictedElements": {
+          "level": "error",
+          "options": {}
+        },
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                          REACT                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noChildrenProp": "off",
+        "noReactPropAssignments": "off",
+        "noRenderReturnValue": "off",
+        "useExhaustiveDependencies": "off",
+        "useHookAtTopLevel": "off",
+        "useUniqueElementIds": "off",
+        "useJsxKeyInIterable": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                         NEXT JS                                ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noNextAsyncClientComponent": "off",
+        "noBeforeInteractiveScriptOutsideDocument": "off",
+        "useInlineScriptId": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                           VUE                                  ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noVueDataObjectDeclaration": "off",
+        "noVueDuplicateKeys": "off",
+        "noVueReservedKeys": "off",
+        "noVueReservedProps": "off",
+        "noVueSetupPropsReactivityLoss": "off",
+        "noVueVIfWithVFor": "off",
+        "useVueValidTemplateRoot": "off",
+        "useVueValidVBind": "off",
+        "useVueValidVCloak": "off",
+        "useVueValidVElse": "off",
+        "useVueValidVElseIf": "off",
+        "useVueValidVHtml": "off",
+        "useVueValidVIf": "off",
+        "useVueValidVOn": "off",
+        "useVueValidVOnce": "off",
+        "useVueValidVPre": "off",
+        "useVueValidVText": "off",
+        "useVueVForKey": "off",
+
+        // ╔════════════════════════════════════════════════════════════════╗
+        // ║                           QWIK                                 ║
+        // ╚════════════════════════════════════════════════════════════════╝
+
+        "noQwikUseVisibleTask": "off",
+        "useQwikClasslist": "off",
+        "useQwikMethodUsage": "off",
+        "useQwikValidLexicalScope": "off"
+      }
+    }
+  }
+}

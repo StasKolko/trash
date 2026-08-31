@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    // 🎯 ЦЕЛЕВАЯ ПЛАТФОРМА И МОДУЛИ
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+
+    // 🧩 РАБОТА С МОДУЛЯМИ И ИМПОРТАМИ
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+
+    // 🧭 ПУТИ, КОНФИГ И ТИПОВЫЕ ОПРЕДЕЛЕНИЯ
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "types": ["vinxi/types/client", "node", "bun"],
+
+    // 💻 ПОДДЕРЖКА JS И JSX
+    "allowJs": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+
+    // ✔️ БЕЗОПАСНОСТЬ ТИПОВ И ПРОВЕРКИ
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // 🏗️ ВЫВОД ФАЙЛОВ / ЭМИССИЯ
+    "noEmit": true
+  },
+  "exclude": [".git", ".husky", "node_modules", "public"]
+}

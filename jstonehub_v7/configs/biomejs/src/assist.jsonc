@@ -1,0 +1,48 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              // type: external
+              {
+                "type": true,
+                "source": [
+                  ":NODE:",
+                  ":BUN:",
+                  ":PACKAGE_WITH_PROTOCOL:",
+                  ":PACKAGE:"
+                ]
+              },
+              // type: project aliases
+              ":BLANK_LINE:",
+              { "type": true, "source": ["#*", "#*/**"] },
+              // type: relative paths
+              ":BLANK_LINE:",
+              { "type": true, "source": ":PATH:" },
+              // value: external
+              ":BLANK_LINE:",
+              [":NODE:", ":BUN:", ":PACKAGE_WITH_PROTOCOL:", ":PACKAGE:"],
+              // value: project aliases
+              ":BLANK_LINE:",
+              ["#*", "#*/**"],
+              // value: relative paths
+              ":BLANK_LINE:",
+              ":PATH:"
+            ]
+          }
+        },
+        "noDuplicateClasses": "on",
+
+        "useSortedAttributes": "off",
+        "useSortedKeys": "off",
+        "useSortedProperties": "off",
+        "useSortedInterfaceMembers": "off"
+      }
+    }
+  }
+}

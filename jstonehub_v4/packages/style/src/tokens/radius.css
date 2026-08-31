@@ -1,0 +1,7 @@
+@theme inline {
+  --radius-xs: var(--radius-xs); /* scrollbar, checkbox */
+  --radius-sm: var(--radius-sm); /* icon-button */
+  --radius-md: var(--radius-md); /* button, select */
+  --radius-lg: var(--radius-lg); /* input, textarea */
+  --radius-xl: var(--radius-xl); /* card, dialog */
+}
